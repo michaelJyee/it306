@@ -16,8 +16,6 @@ public class KitchenDiningRoom extends Room{
 		return woodfloors;
 	}
 
-
-
 	public String[] getStoveTypes() {
 		return stoveTypes;
 	}
@@ -32,10 +30,13 @@ public class KitchenDiningRoom extends Room{
 
 	public double getRoomCost( ) { return roomCost; }
 	
+	public boolean isWoodfloors() {
+		return woodfloors;
+	}
+
 	public void setWoodfloors(boolean woodfloors) {
 		this.woodfloors = woodfloors;
 	}
-
 
 	public void setStoveTypes(String[] stoveTypes) {
 		this.stoveTypes = stoveTypes;
@@ -44,7 +45,10 @@ public class KitchenDiningRoom extends Room{
 	public void setStoveType(String stoveType) {
 		this.stoveType = stoveType;
 	}
-	
+
+	public void setStoveType(String stoveType) {
+		this.stoveType = stoveType;
+	}
 
 	public void setIsland(boolean island) {
 		this.island = island;

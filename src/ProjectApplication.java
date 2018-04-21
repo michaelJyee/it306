@@ -1,9 +1,23 @@
 import javax.swing.JOptionPane;
+import java.util.*;
+
 
 public class ProjectApplication {
 	public static void main(String[] args) {
+		String buildingName = getBuildingName();
+		System.out.println("getBuildingName --> " + buildingName);
+
+		addEmployees();
+
+		//TODO collect eployees
+
+
+	}
+
+	public static String getBuildingName(){
 		String buildingName;
 		boolean invalid = true;
+		
 		do {
 			buildingName = JOptionPane.showInputDialog("Enter Building Name");
 			if (buildingName == null || buildingName.equals("")) {
@@ -12,13 +26,33 @@ public class ProjectApplication {
 				invalid = false;
 			}
 		} while (invalid);
-		int numEmployee = enterNumEmployees();
-		Employee<Integer>[] employees = new Employee[numEmployee]; //has a warning?
-		for(int x = 0; x < numEmployee; x++) {
-			employeeType(employees, x);
-		}
-		//Room[] rooms = new Room[5];
+
+		return buildingName;
 	}
+
+
+	public static void addEmployees(){
+		ArrayList<Employee> list = new ArrayList<Employee>();
+		Boolean sent = false;
+		String response = "";
+		
+		do{
+			response = JOptionPane.showInputDialog(null, "Would you like to add more employees?");
+
+
+			if(response == "Y"){
+				System.out.println("Y");
+				sent = false;
+			}
+			else{
+				System.out.println("F");
+				sent = true;
+			}
+
+		}while(!sent);
+
+	}
+
 	
 	public static int enterNumEmployees() {
 		int totalEmployees = 0;
@@ -35,6 +69,8 @@ public class ProjectApplication {
 		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(null, "Number of Employee Must be a number");
 		}
+
+
 		return totalEmployees;
 	}
 	public static void employeeType(Employee<Integer>[] employees,int x) {
