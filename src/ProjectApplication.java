@@ -1,3 +1,4 @@
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import java.util.*;
@@ -6,42 +7,67 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 
 public class ProjectApplication {
 	public static final String[] ROOM_TYPES = {"Kitchen","Bathroom","LivingRoom","BedRoom"};
 
 	public static void main(String[] args) {
-		try {
-			readRooms();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		// String buildingName = getBuildingName();
-		// System.out.println("getBuildingName --> " + buildingName);
 
+		//Collect Employees
 		ArrayList<Employee> list = new ArrayList<Employee>();
 		
 		addEmployees(list);
-		printEmployeeReport(list);
-		// addEmployees();
 
-		//TODO collect eployees
+	   ArrayList<Room> roomList = null;
 
+		 try {
+		 	roomList = readRooms();
+		 } catch (IOException e) {
+		 	// TODO Auto-generated catch block
+		 	e.printStackTrace();
+		 }
 
+		 // printRoomReport(roomList);
+		 // printEmployeeReport(list);
+
+		 try {
+			writeData("HELLO WORLD");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	public static void readRooms() throws IOException{
-	  File file = new File("rooms.txt");
+	public static void printRoomReport(ArrayList<Room> list){
+		String str = "";
+		for(int i = 0; i < list.size(); i++){
+			str += list.get(i).getRoomName() + " COST ->" + list.get(i).getTotalCost()+'\n';
+		}
+
+		JOptionPane.showMessageDialog(null,str);
+	}
+
+
+	public static ArrayList<Room> readRooms() throws IOException{
+		//Select File Path
+		JFileChooser chooser = new JFileChooser();
+		chooser.showOpenDialog(null);
+
+	  File file = chooser.getSelectedFile();
 	  BufferedReader br = new BufferedReader(new FileReader(file));
-	 
+	  ArrayList<Room> list = new ArrayList<Room>();
+
 	  String st = "";
 
-	  while ((st = br.readLine()) != null)
-	  	System.out.println(lineToRoom(st).toString());
+	  while ((st = br.readLine()) != null) {
+			list.add(lineToRoom(st));
 	  }
+
+	  return list;
+
+	}
 
 	public static Room lineToRoom(String data){
 		String[] line = data.split(",");
@@ -63,27 +89,28 @@ public class ProjectApplication {
 		
 		//Set Height/Width
 		if(rm != null) {
-			rm.setRoomHeight(Double.parseDouble(line[1]));
-			rm.setRoomWidth(Double.parseDouble(line[2]));
+			rm.setRoomName(line[1]);
+			rm.setRoomHeight(Double.parseDouble(line[2]));
+			rm.setRoomWidth(Double.parseDouble(line[3]));
 		}
 
 		if(rm instanceof KitchenDiningRoom){
-			((KitchenDiningRoom) rm).setWoodfloors( Boolean.parseBoolean(line[3]) );
-			((KitchenDiningRoom) rm).setIsland((Boolean.parseBoolean(line[4])));
-			((KitchenDiningRoom) rm).setStoveType(line[5]);
+			((KitchenDiningRoom) rm).setWoodfloors( Boolean.parseBoolean(line[4]) );
+			((KitchenDiningRoom) rm).setIsland((Boolean.parseBoolean(line[5])));
+			((KitchenDiningRoom) rm).setStoveType(line[6]);
 		}
 		else if(rm instanceof Bathroom){
-			((Bathroom) rm).setBathtub(Boolean.parseBoolean(line[3]));
-			((Bathroom) rm).setShowerCurtain((Boolean.parseBoolean(line[4])));
+			((Bathroom) rm).setBathtub(Boolean.parseBoolean(line[4]));
+			((Bathroom) rm).setShowerCurtain((Boolean.parseBoolean(line[5])));
 		}
 		else if(rm instanceof LivingRoom){
-			((LivingRoom) rm).setSofa(Boolean.parseBoolean(line[3]));
-			((LivingRoom) rm).setTelevision(Boolean.parseBoolean(line[4]));
+			((LivingRoom) rm).setSofa(Boolean.parseBoolean(line[4]));
+			((LivingRoom) rm).setTelevision(Boolean.parseBoolean(line[5]));
 		}
 		else if(rm instanceof Bedroom){
-			((Bedroom) rm).setMatress( Boolean.parseBoolean(line[3]));
-			((Bedroom) rm).setNightstand( Boolean.parseBoolean(line[4]));
-			((Bedroom) rm).setPillow( Boolean.parseBoolean(line[5]));
+			((Bedroom) rm).setMatress( Boolean.parseBoolean(line[4]));
+			((Bedroom) rm).setNightstand( Boolean.parseBoolean(line[5]));
+			((Bedroom) rm).setPillow( Boolean.parseBoolean(line[6]));
 		}
 		
 		return rm;
@@ -230,13 +257,10 @@ public class ProjectApplication {
 			default: break;
 		}
 	}
-	public static void employeeRate() {
-		
-	}
-	public static void employeeData() {
-		
-	}
-	public static void roomData() {
-		
+
+	public static void writeData(String data) throws FileNotFoundException{
+		try (PrintWriter out = new PrintWriter("DATA.txt")) {
+		  out.println(data);
+		}
 	}
 }
