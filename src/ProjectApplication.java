@@ -29,24 +29,25 @@ public class ProjectApplication {
 		 	e.printStackTrace();
 		 }
 
-		 // printRoomReport(roomList);
-		 // printEmployeeReport(list);
+		 String reciept = "";
+		 reciept += printRoomReport(roomList);
+		 reciept += printEmployeeReport(list);
 
 		 try {
-			writeData("HELLO WORLD");
+			writeData(reciept);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public static void printRoomReport(ArrayList<Room> list){
+	public static String printRoomReport(ArrayList<Room> list){
 		String str = "";
 		for(int i = 0; i < list.size(); i++){
 			str += list.get(i).getRoomName() + " COST ->" + list.get(i).getTotalCost()+'\n';
 		}
 
-		JOptionPane.showMessageDialog(null,str);
+		return str;
 	}
 
 
@@ -204,7 +205,7 @@ public class ProjectApplication {
 		
 	}
 	
-	public static void printEmployeeReport(ArrayList<Employee> list)
+	public static String printEmployeeReport(ArrayList<Employee> list)
 	{
 		String out ="Employees Report\n";
 		
@@ -222,7 +223,7 @@ public class ProjectApplication {
 		
 		out+= "Employees Total Salaries: " + getTotalSalaries(list);
 		
-		JOptionPane.showMessageDialog(null, out);
+		return out;
 	}
 	
 	public static int enterNumEmployees() {
