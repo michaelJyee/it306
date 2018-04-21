@@ -1,6 +1,6 @@
 
 public class ConstructionWorker<e> extends Employee<e> {
-	public static final double MIN_SALARY = 100;
+	public static final double MIN_SALARY = 0;
 	public static final double MAX_SALARY = 1000;
 	private double salary;
 	

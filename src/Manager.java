@@ -1,6 +1,6 @@
 
 public class Manager<e> extends Employee<e> {
-	public static final double MIN_SALARY = 500;
+	public static final double MIN_SALARY = 0;
 	public static final double MAX_SALARY = 2000;
 	private double salary;
 	
