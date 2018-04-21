@@ -39,7 +39,6 @@ public class ProjectApplication {
 		do{
 			response = JOptionPane.showInputDialog(null, "Would you like to add more employees?");
 
-
 			if(response == "Y"){
 				System.out.println("Y");
 				sent = false;
