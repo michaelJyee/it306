@@ -62,4 +62,12 @@ public class Bedroom extends Room{
 		
 		return totalCost;
 	}
+
+	@Override
+	public String toString() {
+		return "Bedroom [roomCost=" + roomCost + ", matress=" + matress + ", nightstand=" + nightstand + ", pillow="
+				+ pillow + "]";
+	}
+	
+	
 }

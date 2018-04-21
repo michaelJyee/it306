@@ -1,21 +1,94 @@
 import javax.swing.JOptionPane;
+
 import java.util.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 
 public class ProjectApplication {
+	public static final String[] ROOM_TYPES = {"Kitchen","Bathroom","LivingRoom","BedRoom"};
+
 	public static void main(String[] args) {
-		String buildingName = getBuildingName();
-		System.out.println("getBuildingName --> " + buildingName);
+		try {
+			readRooms();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// String buildingName = getBuildingName();
+		// System.out.println("getBuildingName --> " + buildingName);
 
 		ArrayList<Employee> list = new ArrayList<Employee>();
 		
 		addEmployees(list);
-		 printEmployeeReport(list);
+		printEmployeeReport(list);
+		// addEmployees();
 
 		//TODO collect eployees
 
 
 	}
+
+	public static void readRooms() throws IOException{
+	  File file = new File("rooms.txt");
+	  BufferedReader br = new BufferedReader(new FileReader(file));
+	 
+	  String st = "";
+
+	  while ((st = br.readLine()) != null)
+	  	System.out.println(lineToRoom(st).toString());
+	  }
+
+	public static Room lineToRoom(String data){
+		String[] line = data.split(",");
+		Room rm = null;
+
+		//Determine Type
+		if(line[0].trim().equals(ROOM_TYPES[0].trim())){
+			rm = new KitchenDiningRoom();
+		}
+		else if(line[0].trim().equals(ROOM_TYPES[1].trim())){
+			rm = new Bathroom();
+		}
+		else if(line[0].trim().equals(ROOM_TYPES[2].trim())){
+			rm = new LivingRoom();
+		}
+		else if(line[0].trim().equals(ROOM_TYPES[3].trim())){
+			rm = new Bedroom();
+		}
+		
+		//Set Height/Width
+		if(rm != null) {
+			rm.setRoomHeight(Double.parseDouble(line[1]));
+			rm.setRoomWidth(Double.parseDouble(line[2]));
+		}
+
+		if(rm instanceof KitchenDiningRoom){
+			((KitchenDiningRoom) rm).setWoodfloors( Boolean.parseBoolean(line[3]) );
+			((KitchenDiningRoom) rm).setIsland((Boolean.parseBoolean(line[4])));
+			((KitchenDiningRoom) rm).setStoveType(line[5]);
+		}
+		else if(rm instanceof Bathroom){
+			((Bathroom) rm).setBathtub(Boolean.parseBoolean(line[3]));
+			((Bathroom) rm).setShowerCurtain((Boolean.parseBoolean(line[4])));
+		}
+		else if(rm instanceof LivingRoom){
+			((LivingRoom) rm).setSofa(Boolean.parseBoolean(line[3]));
+			((LivingRoom) rm).setTelevision(Boolean.parseBoolean(line[4]));
+		}
+		else if(rm instanceof Bedroom){
+			((Bedroom) rm).setMatress( Boolean.parseBoolean(line[3]));
+			((Bedroom) rm).setNightstand( Boolean.parseBoolean(line[4]));
+			((Bedroom) rm).setPillow( Boolean.parseBoolean(line[5]));
+		}
+		
+		return rm;
+	}
+
 
 	public static String getBuildingName(){
 		String buildingName;

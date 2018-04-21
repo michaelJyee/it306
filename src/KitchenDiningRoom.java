@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public class KitchenDiningRoom extends Room{
 	public static final double MIN_COST = 100;
@@ -77,4 +78,12 @@ public class KitchenDiningRoom extends Room{
 		
 		return totalCost;
 	}
+
+	@Override
+	public String toString() {
+		return "KitchenDiningRoom [woodfloors=" + woodfloors + ", stoveTypes=" + Arrays.toString(stoveTypes)
+				+ ", stoveType=" + stoveType + ", island=" + island + ", roomCost=" + roomCost + "]";
+	}
+	
+	
 }

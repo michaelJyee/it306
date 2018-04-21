@@ -36,6 +36,12 @@ public class Bathroom extends Room{
 		this.showerCurtain = showerCurtain;
 	}
 	
+	
+	@Override
+	public String toString() {
+		return "Bathroom [roomCost=" + roomCost + ", bathtub=" + bathtub + ", showerCurtain=" + showerCurtain + "]";
+	}
+
 	public double getTotalCost()
 	{
 		double totalCost = 0;

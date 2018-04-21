@@ -49,4 +49,11 @@ public class LivingRoom extends Room{
 		
 		return totalCost;
 	}
+
+	@Override
+	public String toString() {
+		return "LivingRoom [roomCost=" + roomCost + ", sofa=" + sofa + ", television=" + television + "]";
+	}
+	
+	
 }
