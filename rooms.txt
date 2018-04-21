@@ -1,0 +1,4 @@
+Kitchen,kitchen1,500,600,true,true,electric
+Bathroom,bathroom - ground Level,533,640,true,true
+LivingRoom,Man Cave,220,650,true,false
+BedRoom,kids room,300,443,true,true,true
