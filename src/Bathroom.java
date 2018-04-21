@@ -3,6 +3,7 @@ public class Bathroom extends Room{
 	public static final double MIN_COST = 400;
 	public static final double MAX_COST = 500;
 	private double roomCost;
+	private boolean bathtub;
 	
 	public Bathroom() {
 		super();
