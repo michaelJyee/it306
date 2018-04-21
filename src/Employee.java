@@ -37,4 +37,12 @@ public abstract class Employee<e> {
 		}
 		this.age = age;
 	}
+	
+	public String toString()
+	{
+		String out ="";
+		out += "Employee Name: " + getFirstName() + getLastName() + "\n" + 
+			   "Employee Age: " + getAge()+ "\n";
+		return out;
+	}
 }

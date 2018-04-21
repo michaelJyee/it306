@@ -16,4 +16,11 @@ public class Manager<e> extends Employee<e> {
 		}
 		this.salary = salary;
 	}
+	
+	public String toString()
+	{
+		String out ="";
+		out += "Employee Type: Manager\n" + super.toString()+ "Employee Salary:" + getSalary() + "\n";
+		return out;
+	}
 }
