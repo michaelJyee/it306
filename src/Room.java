@@ -33,4 +33,6 @@ public abstract class Room {
 		}
 		this.roomWidth = roomWidth;
 	}
+	
+	public abstract double getTotalCost();
 }
