@@ -1,3 +1,13 @@
+/*
+ * Michael Yee
+ * Albert Wei
+ * Thu Tran
+ * IT 306 - 001
+ * 4-21-2018
+ *
+ *
+ * Project - PHASE IV:Preliminary System Implementation
+ * */
 
 public class ConstructionWorker<e> extends Employee<e> {
 	public static final double MIN_SALARY = 0;

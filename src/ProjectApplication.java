@@ -26,39 +26,40 @@ public class ProjectApplication {
 
 	public static void main(String[] args) {
 
-		//Collect Employees
 		ArrayList<Employee> list = new ArrayList<Employee>();
 		
+		ArrayList<Room> roomList = null;
+		
+		//Ask for building name
+		String buildingName = getBuildingName();
+				
+		//Add employees from user
 		addEmployees(list);
 
-	   ArrayList<Room> roomList = null;
-
 		 try {
+			//Read room data from text file
+			 JOptionPane.showMessageDialog(null, "Please select a room data file: (rooms.txt)");
 		 	roomList = readRooms();
 		 } catch (IOException e) {
 		 	// TODO Auto-generated catch block
 		 	e.printStackTrace();
 		 }
 
-		 String reciept = "";
-		 reciept += printRoomReport(roomList);
-		 reciept += printEmployeeReport(list);
+		 double finalTotalCost = 0;
+		 finalTotalCost = getRoomTotalCost(roomList) + getTotalSalaries(list);
+		 String reciept = "Total Housing Cost Reciept**********\n";
+		 reciept += "Building Name: " + buildingName+"\n";
+		 reciept += printRoomReport(roomList)+"\n";
+		 reciept += printEmployeeReport(list)+"\n";
+		 reciept += "Final Total Cost (including rooms and employees cost): " + finalTotalCost;
 
 		 try {
 			writeData(reciept);
+			JOptionPane.showMessageDialog(null, "Receipt has been printed!");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	public static String printRoomReport(ArrayList<Room> list){
-		String str = "";
-		for(int i = 0; i < list.size(); i++){
-			str += list.get(i).getRoomName() + " COST ->" + list.get(i).getTotalCost()+'\n';
-		}
-
-		return str;
 	}
 
 
@@ -128,6 +129,27 @@ public class ProjectApplication {
 		return rm;
 	}
 
+	public static double getRoomTotalCost(ArrayList<Room> list){
+		
+		double totalSalary = 0;
+		
+		for(int i=0; i < list.size(); i++)
+		{
+			totalSalary += list.get(i).getTotalCost();
+		}
+		return totalSalary;
+	}
+	
+	public static String printRoomReport(ArrayList<Room> list){
+		String str = "Room Report******\n";
+		for(int i = 0; i < list.size(); i++){
+			str += list.get(i).getRoomName() + " COST: " + list.get(i).getTotalCost()+"\n";
+		}
+
+		str+= "Rooms Total Cost: " + getRoomTotalCost(list) +"\n";
+		
+		return str;
+	}
 
 	public static String getBuildingName(){
 		String buildingName;
@@ -161,8 +183,7 @@ public class ProjectApplication {
 		do{
 				String[] choices = {"Manager","Construction Worker"};
 				String type = (String) JOptionPane.showInputDialog(null, "Choose employee type","Choice type of Employee", JOptionPane.QUESTION_MESSAGE, null, choices,choices[0]);
-				//String type1 = JOptionPane.showInputDialog(employeetype);
-				//String type2 = JOptionPane.showInputDialog(employeetype);
+
 				if(type.equals("Manager"))
 				{
 					Employee e1 = new Manager();
@@ -218,7 +239,7 @@ public class ProjectApplication {
 	
 	public static String printEmployeeReport(ArrayList<Employee> list)
 	{
-		String out ="Employees Report\n";
+		String out ="Employees Report******\n";
 		
 		for(int i=0; i < list.size(); i++)
 		{
@@ -271,7 +292,7 @@ public class ProjectApplication {
 	}
 
 	public static void writeData(String data) throws FileNotFoundException{
-		try (PrintWriter out = new PrintWriter("DATA.txt")) {
+		try (PrintWriter out = new PrintWriter("Receipt.txt")) {
 		  out.println(data);
 		}
 	}

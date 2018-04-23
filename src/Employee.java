@@ -1,3 +1,13 @@
+/*
+ * Michael Yee
+ * Albert Wei
+ * Thu Tran
+ * IT 306 - 001
+ * 4-21-2018
+ *
+ *
+ * Project - PHASE IV:Preliminary System Implementation
+ * */
 
 public abstract class Employee<e> {
 	private String firstName;
