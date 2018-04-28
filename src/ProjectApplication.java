@@ -245,57 +245,6 @@ public class ProjectApplication {
 		return null;
 	}
 
-
-	// public static void addEmployees(ArrayList<Employee> list){
-	// 	//ArrayList<Employee> list = new ArrayList<Employee>();
-		
-	// 	String prompt = "Would you like to add more employees?";
-	// 	String firstName ="Enter the First Name: ";
-	// 	String LastName ="Enter the Last Name: ";
-	// 	String age = "Enter the age: ";
-	// 	String salary = "Enter salary: ";
-		
-	// 	String employeetype ="Which type of employee you would like to enter?/n manager/construction worker";
-		
-		
-	// 	do{
-	// 			String[] choices = {"Manager","Construction Worker"};
-	// 			String type = (String) JOptionPane.showInputDialog(null, "Choose employee type","Choice type of Employee", JOptionPane.QUESTION_MESSAGE, null, choices,choices[0]);
-
-	// 			if(type.equals("Manager"))
-	// 			{
-	// 				Employee e1 = new Manager();
-	// 				if(e1 instanceof Manager)
-	// 				{
-	// 					System.out.println("Manager");
-	// 					e1.setFirstName(JOptionPane.showInputDialog(firstName));
-	// 					e1.setLastName(JOptionPane.showInputDialog(LastName));
-	// 					e1.setAge(Integer.parseInt(JOptionPane.showInputDialog(age)));
-	// 					((Manager) e1).setSalary(Double.parseDouble(JOptionPane.showInputDialog(salary)));
-						
-	// 					JOptionPane.showMessageDialog(null, e1.toString()); 
-						
-	// 					list.add(e1);
-	// 				}
-	// 			}
-	// 			else
-	// 			{
-	// 				Employee e2 = new ConstructionWorker();
-	// 				if(e2 instanceof ConstructionWorker)
-	// 				{
-	// 					System.out.println("Constuct Worker");
-	// 					e2.setFirstName(JOptionPane.showInputDialog(firstName));
-	// 					e2.setLastName(JOptionPane.showInputDialog(LastName));
-	// 					e2.setAge(Integer.parseInt(JOptionPane.showInputDialog(age)));
-	// 					((ConstructionWorker) e2).setSalary(Double.parseDouble(JOptionPane.showInputDialog(salary)));
-						
-	// 					list.add(e2);
-	// 				}
-	// 			}
-	// 	}while(JOptionPane.showConfirmDialog(null,prompt, "Add Another employee?", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION);
-		
-	// }
-
 	public static double getTotalSalaries(ArrayList<Employee> list)
 	{
 		double totalSalary = 0;
