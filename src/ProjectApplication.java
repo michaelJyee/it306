@@ -11,7 +11,6 @@
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-
 import java.util.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -23,7 +22,6 @@ import java.io.PrintWriter;
 
 public class ProjectApplication {
 	public static final String[] ROOM_TYPES = {"Kitchen","Bathroom","LivingRoom","BedRoom"};
-
 	public static void main(String[] args) {
 		ArrayList<Employee> list = new ArrayList<Employee>();
 		ArrayList<Room> roomList = null;
@@ -31,7 +29,8 @@ public class ProjectApplication {
 		//Ask for building name
 		String buildingName = getBuildingName();
 
-		String menu = "1- Add Employee \n2-Select Room File \n3-Print dependencies \n4-Exit";
+		//Get Name of building
+		String menu = "Project<"+buildingName+">\n1- Add Employee \n2-Select Room File \n3-Print dependencies \n4-Exit";
 		while(true){
 			int option =-1;
 			boolean flag= true;
@@ -44,7 +43,7 @@ public class ProjectApplication {
 					flag = false;
 				}
 			}while(!flag);
-			
+
 			switch(option){
 				case 1:
 					System.out.println("Add Employee");
@@ -63,16 +62,8 @@ public class ProjectApplication {
 					break;
 				case 3:
 					System.out.println("Print Everything");
-					double finalTotalCost = 0;
-					finalTotalCost = getRoomTotalCost(roomList) + getTotalSalaries(list);
-					String reciept = "Total Housing Cost Reciept**********\n";
-					reciept += "Building Name: " + buildingName+"\n";
-					reciept += printRoomReport(roomList)+"\n";
-					reciept += printEmployeeReport(list)+"\n";
-					reciept += "Final Total Cost (including rooms and employees cost): " + finalTotalCost;
-
 					try {
-						writeData(reciept);
+						writeData(buildingName,roomList,list);
 						JOptionPane.showMessageDialog(null, "Receipt has been printed!");
 					} catch (FileNotFoundException e) {
 						// TODO Auto-generated catch block
@@ -83,7 +74,6 @@ public class ProjectApplication {
 					System.exit(0);
 			}
 		}
-
 	}
 
 
@@ -105,10 +95,13 @@ public class ProjectApplication {
 	  while ((st = br.readLine()) != null) {
 			list.add(lineToRoom(st));
 	  }
-
 	  return list;
 	}
 
+	/**
+	  *Parses A Strin and returns Room Object
+	  *returns: Room Object
+	**/
 	public static Room lineToRoom(String data){
 		String[] line = data.split(",");
 		Room rm = null;
@@ -152,10 +145,15 @@ public class ProjectApplication {
 			((Bedroom) rm).setNightstand( Boolean.parseBoolean(line[5]));
 			((Bedroom) rm).setPillow( Boolean.parseBoolean(line[6]));
 		}
-		
+
 		return rm;
 	}
 
+	 /**
+   	*Calculates the all the rooms totals costs
+    *@param list: Arraylist of Room objects
+    *returns: Double
+  **/
 	public static double getRoomTotalCost(ArrayList<Room> list){
 		if(list == null) return 0;
 		double totalSalary = 0;
@@ -167,6 +165,11 @@ public class ProjectApplication {
 		return totalSalary;
 	}
 	
+	/**
+   	*Creates a report for room costs
+    *@param list: Arraylist of Room objects
+    *returns: String
+  **/
 	public static String printRoomReport(ArrayList<Room> list){
 		String str = "\nRoom Report******\n";
 		if(list == null){
@@ -184,6 +187,10 @@ public class ProjectApplication {
 		return str;
 	}
 
+	/**
+   	*gets the building name from user via JOP
+    *returns: String
+  **/
 	public static String getBuildingName(){
 		String buildingName;
 		boolean invalid = true;
@@ -200,7 +207,10 @@ public class ProjectApplication {
 		return buildingName;
 	}
 
-
+	/**
+   	*creates Employee Object from User via JOP
+    *returns: Employee Object
+  **/
 	public static Employee addEmployee(){
 		String prompt = "Would you like to add more employees?";
 		String firstName ="Enter the First Name: ";
@@ -211,11 +221,9 @@ public class ProjectApplication {
 		String[] choices = {"Manager","Construction Worker"};
 		String type = (String) JOptionPane.showInputDialog(null, "Choose employee type","Choice type of Employee", JOptionPane.QUESTION_MESSAGE, null, choices,choices[0]);
 
-		if(type.equals("Manager"))
-		{
+		if(type.equals("Manager")){
 			Employee e1 = new Manager();
-			if(e1 instanceof Manager)
-			{
+			if(e1 instanceof Manager){
 				System.out.println("Manager");
 				e1.setFirstName(JOptionPane.showInputDialog(firstName));
 				e1.setLastName(JOptionPane.showInputDialog(LastName));
@@ -223,21 +231,17 @@ public class ProjectApplication {
 				((Manager) e1).setSalary(Double.parseDouble(JOptionPane.showInputDialog(salary)));
 				
 				JOptionPane.showMessageDialog(null, e1.toString()); 
-				
 				return e1;
 			}
 		}
-		else
-		{
+		else{
 			Employee e2 = new ConstructionWorker();
-			if(e2 instanceof ConstructionWorker)
-			{
+			if(e2 instanceof ConstructionWorker){
 				System.out.println("Constuct Worker");
 				e2.setFirstName(JOptionPane.showInputDialog(firstName));
 				e2.setLastName(JOptionPane.showInputDialog(LastName));
 				e2.setAge(Integer.parseInt(JOptionPane.showInputDialog(age)));
 				((ConstructionWorker) e2).setSalary(Double.parseDouble(JOptionPane.showInputDialog(salary)));
-				
 				return e2;
 			}
 		}
@@ -245,82 +249,60 @@ public class ProjectApplication {
 		return null;
 	}
 
+
+	/**
+   	*Calculates the all the Employees totals costs
+   	*@param list: Arraylist of Employee objects
+    *returns: Double
+  **/
 	public static double getTotalSalaries(ArrayList<Employee> list)
 	{
 		double totalSalary = 0;
 		
-		for(int i=0; i < list.size(); i++)
-		{ 
-			if(list.get(i) instanceof Manager)
-			{
-				totalSalary += ((Manager) list.get(i)).getSalary();
-			}
-			else
-			{
-				totalSalary += ((ConstructionWorker) list.get(i)).getSalary();
-			}
+		for(int i=0; i < list.size(); i++){ 
+			if(list.get(i) instanceof Manager) totalSalary += ((Manager) list.get(i)).getSalary();
+			else totalSalary += ((ConstructionWorker) list.get(i)).getSalary();
 		}
 		return totalSalary;
 		
 	}
 	
-	public static String printEmployeeReport(ArrayList<Employee> list)
-	{
+	/**
+   	*Creates a report for Employee costs
+    *@param list: Arraylist of Employee objects
+    *returns: String
+  **/
+	public static String printEmployeeReport(ArrayList<Employee> list){
 		String out ="Employees Report******\n";
-		
-		for(int i=0; i < list.size(); i++)
-		{
-			if(list.get(i) instanceof Manager)
-			{
+
+		for(int i=0; i < list.size(); i++){
+			if(list.get(i) instanceof Manager){
 				out += ((Manager) list.get(i)).toString()+"\n";
 			}
-			else
-			{
+			else{
 				out += ((ConstructionWorker) list.get(i)).toString()+"\n";
 			}
 		}
-		
 		out+= "Employees Total Salaries: " + getTotalSalaries(list);
-		
 		return out;
 	}
 	
-	public static int enterNumEmployees() {
-		int totalEmployees = 0;
-		boolean invalid = true;
-		try {
-			do {
-				totalEmployees = Integer.parseInt(JOptionPane.showInputDialog("Enter Number of Employees: "));
-				if (totalEmployees <= 0) {
-					JOptionPane.showMessageDialog(null, "Number of Employee must be greater than 0");
-				} else {
-					invalid = false;
-				}
-			} while(invalid);
-		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(null, "Number of Employee Must be a number");
-		}
+	/**
+   	*
+    *@param list: Arraylist of Employee objects
+    *returns: String
+  **/
+	public static void writeData(String buildingName,ArrayList<Room> roomList, ArrayList<Employee> list) throws FileNotFoundException{
+		double finalTotalCost = 0;
+		finalTotalCost = getRoomTotalCost(roomList) + getTotalSalaries(list);
+		String reciept = "Total Housing Cost Reciept**********\n";
+		reciept += "Building Name: " + buildingName+"\n";
+		reciept += printRoomReport(roomList)+"\n";
+		reciept += printEmployeeReport(list)+"\n";
+		reciept += "Final Total Cost (including rooms and employees cost): " + finalTotalCost;
 
-
-		return totalEmployees;
-	}
-	public static void employeeType(Employee<Integer>[] employees,int x) {
-		String[] choices = {"Manager","Construction Worker"};
-		String input = (String) JOptionPane.showInputDialog(null, "Choose type","Choice type of Employee", JOptionPane.QUESTION_MESSAGE, null, choices,choices[0]);
-		switch(input) {
-			case "Manager": 
-				employees[x] = new Manager<Integer>();
-				break;
-			case "Construction Worker":
-				employees[x] = new ConstructionWorker<Integer>();
-				break;
-			default: break;
-		}
-	}
-
-	public static void writeData(String data) throws FileNotFoundException{
 		try (PrintWriter out = new PrintWriter("Receipt.txt")) {
-		  out.println(data);
+		  out.println(reciept);
 		}
 	}
 }
