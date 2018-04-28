@@ -237,10 +237,57 @@ public class ProjectApplication {
 			Employee e1 = new Manager();
 			if(e1 instanceof Manager){
 				System.out.println("Manager");
-				e1.setFirstName(JOptionPane.showInputDialog(firstName));
-				e1.setLastName(JOptionPane.showInputDialog(LastName));
-				e1.setAge(Integer.parseInt(JOptionPane.showInputDialog(age)));
-				((Manager) e1).setSalary(Double.parseDouble(JOptionPane.showInputDialog(salary)));
+				boolean validFirst = false;
+				do{
+					try{
+						e1.setFirstName(JOptionPane.showInputDialog(firstName));
+						validFirst = true;
+					}
+					catch(IllegalArgumentException e)
+					{JOptionPane.showMessageDialog(null,"Manager cannot be added!\n" + e.getMessage());}
+				}while(!validFirst);
+				
+				boolean validLast = false;
+				do{
+					try{
+						e1.setLastName(JOptionPane.showInputDialog(LastName));
+						validLast = true;
+					}
+					catch(IllegalArgumentException e)
+					{JOptionPane.showMessageDialog(null,"Manager cannot be added!\n" + e.getMessage());}
+				}while(!validLast);
+				
+				boolean validAge = false;
+				do{
+					try{
+						e1.setAge(Integer.parseInt(JOptionPane.showInputDialog(age)));
+						validAge = true;
+					}
+		            catch(NumberFormatException e) {
+	                     JOptionPane.showMessageDialog(null, "Only enter numbers!");
+	            }
+					catch(IllegalArgumentException e)
+					{JOptionPane.showMessageDialog(null,"Manager cannot be added!\n" + e.getMessage());}
+				}while(!validAge);
+				
+				boolean validSalary = false;
+				do{
+					try{
+						((Manager) e1).setSalary(Double.parseDouble(JOptionPane.showInputDialog(salary)));
+						validSalary = true;
+					}
+		            catch(NumberFormatException e) {
+		                     JOptionPane.showMessageDialog(null, "Only enter numbers!");
+		            }
+					catch(IllegalArgumentException e)
+					{JOptionPane.showMessageDialog(null,"Manager cannot be added!\n" + e.getMessage());}
+				}while(!validSalary);
+				
+				
+				//e1.setFirstName(JOptionPane.showInputDialog(firstName));
+				//e1.setLastName(JOptionPane.showInputDialog(LastName));
+				//e1.setAge(Integer.parseInt(JOptionPane.showInputDialog(age)));
+				//((Manager) e1).setSalary(Double.parseDouble(JOptionPane.showInputDialog(salary)));
 				
 				JOptionPane.showMessageDialog(null, e1.toString()); 
 				return e1;
@@ -249,11 +296,57 @@ public class ProjectApplication {
 		else{
 			Employee e2 = new ConstructionWorker();
 			if(e2 instanceof ConstructionWorker){
-				System.out.println("Constuct Worker");
-				e2.setFirstName(JOptionPane.showInputDialog(firstName));
-				e2.setLastName(JOptionPane.showInputDialog(LastName));
-				e2.setAge(Integer.parseInt(JOptionPane.showInputDialog(age)));
-				((ConstructionWorker) e2).setSalary(Double.parseDouble(JOptionPane.showInputDialog(salary)));
+				System.out.println("Constuction Worker");
+				boolean validFirst = false;
+				do{
+					try{
+						e2.setFirstName(JOptionPane.showInputDialog(firstName));
+						validFirst = true;
+					}
+					catch(IllegalArgumentException e)
+					{JOptionPane.showMessageDialog(null,"Construction Worker cannot be added!\n" + e.getMessage());}
+				}while(!validFirst);
+				
+				boolean validLast = false;
+				do{
+					try{
+						e2.setLastName(JOptionPane.showInputDialog(LastName));
+						validLast = true;
+					}
+					catch(IllegalArgumentException e)
+					{JOptionPane.showMessageDialog(null,"Construction Worker cannot be added!\n" + e.getMessage());}
+				}while(!validLast);
+				
+				boolean validAge = false;
+				do{
+					try{
+						e2.setAge(Integer.parseInt(JOptionPane.showInputDialog(age)));
+						validAge = true;
+					}
+		            catch(NumberFormatException e) {
+	                     JOptionPane.showMessageDialog(null, "Only enter numbers!");
+	            }
+					catch(IllegalArgumentException e)
+					{JOptionPane.showMessageDialog(null,"Construction Worker cannot be added!\n" + e.getMessage());}
+				}while(!validAge);
+				
+				boolean validSalary = false;
+				do{
+					try{
+						((ConstructionWorker) e2).setSalary(Double.parseDouble(JOptionPane.showInputDialog(salary)));
+						validSalary = true;
+					}
+		            catch(NumberFormatException e) {
+		                     JOptionPane.showMessageDialog(null, "Only enter numbers!");
+		            }
+					catch(IllegalArgumentException e)
+					{JOptionPane.showMessageDialog(null,"Construction Worker cannot be added!\n" + e.getMessage());}
+				}while(!validSalary);
+				
+				//e2.setFirstName(JOptionPane.showInputDialog(firstName));
+				//e2.setLastName(JOptionPane.showInputDialog(LastName));
+				//e2.setAge(Integer.parseInt(JOptionPane.showInputDialog(age)));
+				//((ConstructionWorker) e2).setSalary(Double.parseDouble(JOptionPane.showInputDialog(salary)));
 				return e2;
 			}
 		}
