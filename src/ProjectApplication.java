@@ -25,41 +25,65 @@ public class ProjectApplication {
 	public static final String[] ROOM_TYPES = {"Kitchen","Bathroom","LivingRoom","BedRoom"};
 
 	public static void main(String[] args) {
-
 		ArrayList<Employee> list = new ArrayList<Employee>();
-		
 		ArrayList<Room> roomList = null;
 		
 		//Ask for building name
 		String buildingName = getBuildingName();
-				
-		//Add employees from user
-		addEmployees(list);
 
-		 try {
-			//Read room data from text file
-			 JOptionPane.showMessageDialog(null, "Please select a room data file: (rooms.txt)");
-		 	roomList = readRooms();
-		 } catch (IOException e) {
-		 	// TODO Auto-generated catch block
-		 	e.printStackTrace();
-		 }
+		String menu = "1- Add Employee \n2-Select Room File \n3-Print dependencies \n4-Exit";
+		while(true){
+			int option =-1;
+			boolean flag= true;
+			do{
+				try{
+					option =Integer.parseInt(JOptionPane.showInputDialog(menu));
+					flag= true;
+				}catch(NumberFormatException e){
+					JOptionPane.showMessageDialog(null, "Invalid input.");
+					flag = false;
+				}
+			}while(!flag);
+			
+			switch(option){
+				case 1:
+					System.out.println("Add Employee");
+					list.add(addEmployee());
+					break;
+				case 2:
+					System.out.println("Select Room File");
+					try {
+						//Read room data from text file
+						JOptionPane.showMessageDialog(null, "Please select a room data file: (rooms.txt)");
+					 	roomList = readRooms();
+					 } catch (IOException e) {
+					 	// TODO Auto-generated catch block
+					 	e.printStackTrace();
+					 }
+					break;
+				case 3:
+					System.out.println("Print Everything");
+					double finalTotalCost = 0;
+					finalTotalCost = getRoomTotalCost(roomList) + getTotalSalaries(list);
+					String reciept = "Total Housing Cost Reciept**********\n";
+					reciept += "Building Name: " + buildingName+"\n";
+					reciept += printRoomReport(roomList)+"\n";
+					reciept += printEmployeeReport(list)+"\n";
+					reciept += "Final Total Cost (including rooms and employees cost): " + finalTotalCost;
 
-		 double finalTotalCost = 0;
-		 finalTotalCost = getRoomTotalCost(roomList) + getTotalSalaries(list);
-		 String reciept = "Total Housing Cost Reciept**********\n";
-		 reciept += "Building Name: " + buildingName+"\n";
-		 reciept += printRoomReport(roomList)+"\n";
-		 reciept += printEmployeeReport(list)+"\n";
-		 reciept += "Final Total Cost (including rooms and employees cost): " + finalTotalCost;
-
-		 try {
-			writeData(reciept);
-			JOptionPane.showMessageDialog(null, "Receipt has been printed!");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+					try {
+						writeData(reciept);
+						JOptionPane.showMessageDialog(null, "Receipt has been printed!");
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					break;
+				case 4:
+					System.exit(0);
+			}
 		}
+
 	}
 
 
@@ -83,7 +107,6 @@ public class ProjectApplication {
 	  }
 
 	  return list;
-
 	}
 
 	public static Room lineToRoom(String data){
@@ -134,23 +157,29 @@ public class ProjectApplication {
 	}
 
 	public static double getRoomTotalCost(ArrayList<Room> list){
-		
+		if(list == null) return 0;
 		double totalSalary = 0;
-		
 		for(int i=0; i < list.size(); i++)
 		{
 			totalSalary += list.get(i).getTotalCost();
 		}
+
 		return totalSalary;
 	}
 	
 	public static String printRoomReport(ArrayList<Room> list){
-		String str = "Room Report******\n";
+		String str = "\nRoom Report******\n";
+		if(list == null){
+			str += "No Room Data Selected\n";
+			str += "Rooms Total Cost: 0.0$\n";
+			return str;
+		}
+
 		for(int i = 0; i < list.size(); i++){
 			str += list.get(i).getRoomName() + " COST: " + list.get(i).getTotalCost()+"\n";
 		}
 
-		str+= "Rooms Total Cost: " + getRoomTotalCost(list) +"\n";
+		str+= "Rooms Total Cost: " + getRoomTotalCost(list) +"\n\n";
 		
 		return str;
 	}
@@ -172,55 +201,100 @@ public class ProjectApplication {
 	}
 
 
-	public static void addEmployees(ArrayList<Employee> list){
-		//ArrayList<Employee> list = new ArrayList<Employee>();
-		
+	public static Employee addEmployee(){
 		String prompt = "Would you like to add more employees?";
 		String firstName ="Enter the First Name: ";
 		String LastName ="Enter the Last Name: ";
 		String age = "Enter the age: ";
 		String salary = "Enter salary: ";
-		
-		String employeetype ="Which type of employee you would like to enter?/n manager/construction worker";
-		
-		
-		do{
-				String[] choices = {"Manager","Construction Worker"};
-				String type = (String) JOptionPane.showInputDialog(null, "Choose employee type","Choice type of Employee", JOptionPane.QUESTION_MESSAGE, null, choices,choices[0]);
 
-				if(type.equals("Manager"))
-				{
-					Employee e1 = new Manager();
-					if(e1 instanceof Manager)
-					{
-						System.out.println("Manager");
-						e1.setFirstName(JOptionPane.showInputDialog(firstName));
-						e1.setLastName(JOptionPane.showInputDialog(LastName));
-						e1.setAge(Integer.parseInt(JOptionPane.showInputDialog(age)));
-						((Manager) e1).setSalary(Double.parseDouble(JOptionPane.showInputDialog(salary)));
-						
-						JOptionPane.showMessageDialog(null, e1.toString()); 
-						
-						list.add(e1);
-					}
-				}
-				else
-				{
-					Employee e2 = new ConstructionWorker();
-					if(e2 instanceof ConstructionWorker)
-					{
-						System.out.println("Constuct Worker");
-						e2.setFirstName(JOptionPane.showInputDialog(firstName));
-						e2.setLastName(JOptionPane.showInputDialog(LastName));
-						e2.setAge(Integer.parseInt(JOptionPane.showInputDialog(age)));
-						((ConstructionWorker) e2).setSalary(Double.parseDouble(JOptionPane.showInputDialog(salary)));
-						
-						list.add(e2);
-					}
-				}
-		}while(JOptionPane.showConfirmDialog(null,prompt, "Add Another employee?", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION);
-		
+		String[] choices = {"Manager","Construction Worker"};
+		String type = (String) JOptionPane.showInputDialog(null, "Choose employee type","Choice type of Employee", JOptionPane.QUESTION_MESSAGE, null, choices,choices[0]);
+
+		if(type.equals("Manager"))
+		{
+			Employee e1 = new Manager();
+			if(e1 instanceof Manager)
+			{
+				System.out.println("Manager");
+				e1.setFirstName(JOptionPane.showInputDialog(firstName));
+				e1.setLastName(JOptionPane.showInputDialog(LastName));
+				e1.setAge(Integer.parseInt(JOptionPane.showInputDialog(age)));
+				((Manager) e1).setSalary(Double.parseDouble(JOptionPane.showInputDialog(salary)));
+				
+				JOptionPane.showMessageDialog(null, e1.toString()); 
+				
+				return e1;
+			}
+		}
+		else
+		{
+			Employee e2 = new ConstructionWorker();
+			if(e2 instanceof ConstructionWorker)
+			{
+				System.out.println("Constuct Worker");
+				e2.setFirstName(JOptionPane.showInputDialog(firstName));
+				e2.setLastName(JOptionPane.showInputDialog(LastName));
+				e2.setAge(Integer.parseInt(JOptionPane.showInputDialog(age)));
+				((ConstructionWorker) e2).setSalary(Double.parseDouble(JOptionPane.showInputDialog(salary)));
+				
+				return e2;
+			}
+		}
+
+		return null;
 	}
+
+
+	// public static void addEmployees(ArrayList<Employee> list){
+	// 	//ArrayList<Employee> list = new ArrayList<Employee>();
+		
+	// 	String prompt = "Would you like to add more employees?";
+	// 	String firstName ="Enter the First Name: ";
+	// 	String LastName ="Enter the Last Name: ";
+	// 	String age = "Enter the age: ";
+	// 	String salary = "Enter salary: ";
+		
+	// 	String employeetype ="Which type of employee you would like to enter?/n manager/construction worker";
+		
+		
+	// 	do{
+	// 			String[] choices = {"Manager","Construction Worker"};
+	// 			String type = (String) JOptionPane.showInputDialog(null, "Choose employee type","Choice type of Employee", JOptionPane.QUESTION_MESSAGE, null, choices,choices[0]);
+
+	// 			if(type.equals("Manager"))
+	// 			{
+	// 				Employee e1 = new Manager();
+	// 				if(e1 instanceof Manager)
+	// 				{
+	// 					System.out.println("Manager");
+	// 					e1.setFirstName(JOptionPane.showInputDialog(firstName));
+	// 					e1.setLastName(JOptionPane.showInputDialog(LastName));
+	// 					e1.setAge(Integer.parseInt(JOptionPane.showInputDialog(age)));
+	// 					((Manager) e1).setSalary(Double.parseDouble(JOptionPane.showInputDialog(salary)));
+						
+	// 					JOptionPane.showMessageDialog(null, e1.toString()); 
+						
+	// 					list.add(e1);
+	// 				}
+	// 			}
+	// 			else
+	// 			{
+	// 				Employee e2 = new ConstructionWorker();
+	// 				if(e2 instanceof ConstructionWorker)
+	// 				{
+	// 					System.out.println("Constuct Worker");
+	// 					e2.setFirstName(JOptionPane.showInputDialog(firstName));
+	// 					e2.setLastName(JOptionPane.showInputDialog(LastName));
+	// 					e2.setAge(Integer.parseInt(JOptionPane.showInputDialog(age)));
+	// 					((ConstructionWorker) e2).setSalary(Double.parseDouble(JOptionPane.showInputDialog(salary)));
+						
+	// 					list.add(e2);
+	// 				}
+	// 			}
+	// 	}while(JOptionPane.showConfirmDialog(null,prompt, "Add Another employee?", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION);
+		
+	// }
 
 	public static double getTotalSalaries(ArrayList<Employee> list)
 	{
