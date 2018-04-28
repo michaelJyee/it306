@@ -46,8 +46,8 @@ public class ProjectApplication {
 
 			switch(option){
 				case 1:
-					System.out.println("Add Employee");
-					list.add(addEmployee());
+					Employee e1 = addEmployee();
+					if(e1 != null) list.add(e1);
 					break;
 				case 2:
 					System.out.println("Select Room File");
@@ -219,9 +219,14 @@ public class ProjectApplication {
 		String salary = "Enter salary: ";
 
 		String[] choices = {"Manager","Construction Worker"};
-		String type = (String) JOptionPane.showInputDialog(null, "Choose employee type","Choice type of Employee", JOptionPane.QUESTION_MESSAGE, null, choices,choices[0]);
+		
+		String type;
+		type = (String) JOptionPane.showInputDialog(null, "Choose employee type","Choice type of Employee", JOptionPane.QUESTION_MESSAGE, null, choices,choices[0]);
 
-		if(type.equals("Manager")){
+		if(type == null){
+			return null;
+		}
+		else if(type.equals("Manager")){
 			Employee e1 = new Manager();
 			if(e1 instanceof Manager){
 				System.out.println("Manager");
@@ -246,6 +251,7 @@ public class ProjectApplication {
 			}
 		}
 
+		System.out.println("NULL");
 		return null;
 	}
 
