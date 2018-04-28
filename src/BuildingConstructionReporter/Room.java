@@ -1,3 +1,4 @@
+package BuildingConstructionReporter;
 /*
  * Michael Yee
  * Albert Wei

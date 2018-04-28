@@ -1,3 +1,4 @@
+package BuildingConstructionReporter;
 /*
  * Michael Yee
  * Albert Wei
@@ -8,20 +9,21 @@
  *
  * Project - PHASE IV:Preliminary System Implementation
  * */
-public class Bathroom extends Room{
-	//Declare Constants for min and max cost
-	public static final double MIN_COST = 400;
-	public static final double MAX_COST = 500;
-	//Declare the instance variable
-	private double roomCost;
-	private boolean bathtub;
-	private boolean showerCurtain;
-	
 
+public class LivingRoom extends Room{
+	//Declare Constants for min and max cost
+	public static final double MIN_COST = 100;
+	public static final double MAX_COST = 200;
+	//Declare the instance variables
+	private double roomCost;
+	private boolean sofa;
+	private boolean television;
+	
 	//Constructor
-	public Bathroom() {
+	public LivingRoom() {
 		super();
 	}
+	
 	/**
    	*Returns cost Of Room
     *returns: Double
@@ -29,20 +31,21 @@ public class Bathroom extends Room{
 	public double getRoomCost( ) { return roomCost; }
 	
 	/**
-   	*Returns is there a bathtub in a Bathroom
+   	*Returns is there a sofa in a LivingRoom
     *returns: boolean
   **/
-	public boolean isBathtub() {
-		return bathtub;
+	public boolean isSofa() {
+		return sofa;
 	}
 	/**
-   	*Returns is there a shower curtain in a Bathroom
+   	*Returns is there a television in a LivingRoom
     *returns: boolean
   **/
-	public boolean isShowerCurtain() {
-		return showerCurtain;
+	public boolean isTelevision()
+	{
+		return television;
 	}
-	
+
 	/**
    	*Sets room cost Validates parameter is within MIN_COST AND MAX_COST
     *@param roomCost: double
@@ -55,48 +58,49 @@ public class Bathroom extends Room{
 		this.roomCost = roomCost;
 	}
 	/**
-   	*Sets the value(true or false) of a bathtub
-    *@param bathtub: boolean
+   	*Sets the value(true or false) of a sofa
+    *@param sofa: boolean
     *returns: void
   **/
-	public void setBathtub(boolean bathtub) {
-		this.bathtub = bathtub;
+	public void setSofa(boolean sofa) {
+		this.sofa = sofa;
 	}
 	/**
-   	*Sets the value (true or false) of a showerCurtain
-    *@param showerCurtain: boolean
+   	*Sets the value(true or false) of a television
+    *@param television: boolean
     *returns: void
   **/
-	public void setShowerCurtain(boolean showerCurtain) {
-		this.showerCurtain = showerCurtain;
+	public void setTelevision(boolean television) {
+		this.television = television;
 	}
 	
 	/**
-   	*Returns the total cost of a bathroom
+   	*Returns the total cost of a LivingRoom
     *returns: Double
   **/
 	public double getTotalCost()
 	{
 		double totalCost = 0;
-		if(this.bathtub == true)
+		if(this.sofa == true)
 		{
 			totalCost += 50;
 		}
-		if(this.showerCurtain == true)
+		if(this.television == true)
 		{
 			totalCost += 100;
 		}
 		
 		return totalCost;
 	}
-	
+
 	@Override
 	/**
-   	*Returns a string representation of a Bathroom
+   	*Returns a string representation of a LivingRoom
     *returns: String
   **/
 	public String toString() {
-		return "Bathroom [roomCost=" + roomCost + ", bathtub=" + bathtub + ", showerCurtain=" + showerCurtain + "]";
+		return "LivingRoom [roomCost=" + roomCost + ", sofa=" + sofa + ", television=" + television + "]";
 	}
+	
 	
 }
