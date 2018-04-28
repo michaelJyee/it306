@@ -10,10 +10,13 @@
  * */
 
 public class ConstructionWorker<e> extends Employee<e> {
+	//Declare Constants for min and max salary
 	public static final double MIN_SALARY = 0;
 	public static final double MAX_SALARY = 1000;
+	//Declare the instance variable
 	private double salary;
 	
+	//Constructor
 	public ConstructionWorker() {
 		super();
 	}
@@ -38,7 +41,7 @@ public class ConstructionWorker<e> extends Employee<e> {
 	}
 	
 	/**
-   	*Returns String Value Of Construction Worker
+   	*Returns a string representation of a Construction Worker
     *returns: String
   **/
 	public String toString()
