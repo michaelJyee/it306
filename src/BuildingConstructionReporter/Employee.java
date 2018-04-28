@@ -10,20 +10,21 @@ package BuildingConstructionReporter;
  * Project - PHASE IV:Preliminary System Implementation
  * */
 
-public abstract class Employee<e> {
+public abstract class Employee {
 	
 	//Declare Constant for min age
 	public static final double MIN_AGE = 0;
 	//Declare the instance variables
 	private String firstName;
 	private String lastName;
-	private e employeeId;
+	private int employeeId;
 	private int age;
 	private static int numOfEmployees = 0;
 	
 	//Constructor
 	public Employee() {
 		numOfEmployees++;
+    this.setId(numOfEmployees);
 	}
 	
 	/**
@@ -36,11 +37,12 @@ public abstract class Employee<e> {
     *returns: String
   **/
 	public String getLastName() { return lastName; }
-	/**
+	
+  /**
    	*Returns the id of Employee
     *returns: e
   **/
-	public e getId() { return employeeId; }
+	public int getId() { return employeeId; }
 	/**
    	*Returns the age of Employee
     *returns: Integer
@@ -76,10 +78,10 @@ public abstract class Employee<e> {
 	}
 	/**
    	*Sets id Validates parameter is not null and blank
-    *@param id: e
+    *@param id: int
     *returns: void
   **/
-	public void setId(e employeeId) {
+	private void setId(int employeeId) {
 		this.employeeId = employeeId;
 	}
 	/**
@@ -101,7 +103,7 @@ public abstract class Employee<e> {
 	public String toString()
 	{
 		String out ="";
-		out += "Employee Name: " + getFirstName() + getLastName() + "\n" + 
+		out += "ID: " +this.getId()+ "\nEmployee Name: " + getFirstName() +" "+ getLastName() + "\n" + 
 			   "Employee Age: " + getAge()+ "\n";
 		return out;
 	}

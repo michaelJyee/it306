@@ -10,7 +10,7 @@ package BuildingConstructionReporter;
  * Project - PHASE IV:Preliminary System Implementation
  * */
 
-public class ConstructionWorker<e> extends Employee<e> {
+public class ConstructionWorker extends Employee {
 	//Declare Constants for min and max salary
 	public static final double MIN_SALARY = 0;
 	public static final double MAX_SALARY = 1000;

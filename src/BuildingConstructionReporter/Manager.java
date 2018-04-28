@@ -10,7 +10,7 @@ package BuildingConstructionReporter;
  * Project - PHASE IV:Preliminary System Implementation
  * */
 
-public class Manager<e> extends Employee<e> {
+public class Manager extends Employee {
 	//Declare Constants for min and max salary
 	public static final double MIN_SALARY = 0;
 	public static final double MAX_SALARY = 2000;

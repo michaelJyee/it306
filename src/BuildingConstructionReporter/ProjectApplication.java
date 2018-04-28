@@ -343,10 +343,7 @@ public class ProjectApplication {
 					{JOptionPane.showMessageDialog(null,"Construction Worker cannot be added!\n" + e.getMessage());}
 				}while(!validSalary);
 				
-				//e2.setFirstName(JOptionPane.showInputDialog(firstName));
-				//e2.setLastName(JOptionPane.showInputDialog(LastName));
-				//e2.setAge(Integer.parseInt(JOptionPane.showInputDialog(age)));
-				//((ConstructionWorker) e2).setSalary(Double.parseDouble(JOptionPane.showInputDialog(salary)));
+				JOptionPane.showMessageDialog(null, e2.toString()); 
 				return e2;
 			}
 		}
