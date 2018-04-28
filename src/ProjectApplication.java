@@ -63,6 +63,10 @@ public class ProjectApplication {
 	}
 
 
+	/**
+	  *Reads a file of room and outputs and Arraylist of Room objects
+	  *returns: Arraylist of Room Objects
+	**/
 	public static ArrayList<Room> readRooms() throws IOException{
 		//Select File Path
 		JFileChooser chooser = new JFileChooser();
