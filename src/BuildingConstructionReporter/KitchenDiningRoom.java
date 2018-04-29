@@ -1,13 +1,16 @@
 package BuildingConstructionReporter;
 /*
- * Michael Yee
- * Albert Wei
- * Thu Tran
+ * @author Michael Yee
+ * @author Albert Wei
+ * @author Thu Tran
+ * 
  * IT 306 - 001
- * 4-21-2018
  *
- *
- * Project - PHASE IV:Preliminary System Implementation
+ * This is the data definition class for KitchenDiningRoom.
+ * It will store the specific information for KitchenDiningRoom type of Room.
+ * such as room cost, woodfloor, stoveType, and island.
+ * This class have a getTotalCost() method to calculate the total based on does it have a woodfloors, stove, and island.
+ * This class have a toString() method to output the KitchenDiningRoom information.
  * */
 
 import java.util.Arrays;

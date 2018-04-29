@@ -1,13 +1,15 @@
 package BuildingConstructionReporter;
 /*
- * Michael Yee
- * Albert Wei
- * Thu Tran
+ * @author Michael Yee
+ * @author Albert Wei
+ * @author Thu Tran
  * IT 306 - 001
- * 4-21-2018
- *
- *
- * Project - PHASE IV:Preliminary System Implementation
+ * The purpose of this system is to determine the total cost to build a house.
+ * It will ask the user to input employees' information based on their type(manager, construction worker)and calculate the total cost.
+ * such as employee's first and last name, age and salary.
+ * It will ask the user to import a text file that contains room data and calculate the total cost.
+ * Upon system termination, the program will output a text file that contains all the information regarding employees and room with the final total cost.
+ * File output name is: "Receipt.txt"
  * */
 
 import javax.swing.JFileChooser;
@@ -24,14 +26,14 @@ import java.io.PrintWriter;
 public class ProjectApplication {
 	public static final String[] ROOM_TYPES = {"Kitchen","Bathroom","LivingRoom","BedRoom"};
 	public static void main(String[] args) {
-		ArrayList<Employee> list = new ArrayList<Employee>();
-		ArrayList<Room> roomList = null;
+		LinkedList<Employee> list = new LinkedList<Employee>();
+		LinkedList<Room> roomList = null;
 		
 		//Ask for building name
 		String buildingName = getBuildingName();
 
 		//Get Name of building
-		String menu = "Project<"+buildingName+">\n1- Add Employee \n2-Select Room File \n3-Print dependencies \n4-Exit";
+		String menu = "Project<"+buildingName+">\n1- Add Employee \n2-Select Room File \n3-Print Final Report \n4-Exit";
 		while(true){
 			int option =-1;
 			boolean flag= true;
@@ -40,7 +42,7 @@ public class ProjectApplication {
 					option =Integer.parseInt(JOptionPane.showInputDialog(menu));
 					flag= true;
 				}catch(NumberFormatException e){
-					JOptionPane.showMessageDialog(null, "Invalid input.");
+					JOptionPane.showMessageDialog(null, "Invalid input. Please enter a building name.");
 					flag = false;
 				}
 			}while(!flag);
@@ -85,17 +87,17 @@ public class ProjectApplication {
 
 
 	/**
-	  *Reads a file of room and outputs and Arraylist of Room objects
-	  *returns: Arraylist of Room Objects
+	  *Reads a file of room and outputs and LinkedList of Room objects
+	  *returns: LinkedList of Room Objects
 	**/
-	public static ArrayList<Room> readRooms() throws IOException{
+	public static LinkedList<Room> readRooms() throws IOException{
 		//Select File Path
 		JFileChooser chooser = new JFileChooser();
 		chooser.showOpenDialog(null);
 
 	  File file = chooser.getSelectedFile();
 	  BufferedReader br = new BufferedReader(new FileReader(file));
-	  ArrayList<Room> list = new ArrayList<Room>();
+	  LinkedList<Room> list = new LinkedList<Room>();
 
 	  String st = "";
 
@@ -106,7 +108,7 @@ public class ProjectApplication {
 	}
 
 	/**
-	  *Parses A Strin and returns Room Object
+	  *Parses A String and returns Room Object
 	  *returns: Room Object
 	**/
 	public static Room lineToRoom(String data){
@@ -158,10 +160,10 @@ public class ProjectApplication {
 
 	 /**
    	*Calculates the all the rooms totals costs
-    *@param list: Arraylist of Room objects
+    *@param list: LinkedList of Room objects
     *returns: Double
   **/
-	public static double getRoomTotalCost(ArrayList<Room> list){
+	public static double getRoomTotalCost(LinkedList<Room> list){
 		if(list == null) return 0;
 		double totalSalary = 0;
 		for(int i=0; i < list.size(); i++)
@@ -174,10 +176,10 @@ public class ProjectApplication {
 	
 	/**
    	*Creates a report for room costs
-    *@param list: Arraylist of Room objects
+    *@param list: LinkedList of Room objects
     *returns: String
   **/
-	public static String printRoomReport(ArrayList<Room> list){
+	public static String printRoomReport(LinkedList<Room> list){
 		String str = "\nRoom Report******\n";
 		if(list == null){
 			str += "No Room Data Selected\n";
@@ -219,7 +221,7 @@ public class ProjectApplication {
     *returns: Employee Object
   **/
 	public static Employee addEmployee(){
-		String prompt = "Would you like to add more employees?";
+		String prompt = "Choose employee type";
 		String firstName ="Enter the First Name: ";
 		String LastName ="Enter the Last Name: ";
 		String age = "Enter the age: ";
@@ -228,7 +230,7 @@ public class ProjectApplication {
 		String[] choices = {"Manager","Construction Worker"};
 		
 		String type;
-		type = (String) JOptionPane.showInputDialog(null, "Choose employee type","Choice type of Employee", JOptionPane.QUESTION_MESSAGE, null, choices,choices[0]);
+		type = (String) JOptionPane.showInputDialog(null, prompt,"Choice type of Employee", JOptionPane.QUESTION_MESSAGE, null, choices,choices[0]);
 
 		if(type == null){
 			throw new NullPointerException("Parameter Type cannot be null");
@@ -283,11 +285,6 @@ public class ProjectApplication {
 					{JOptionPane.showMessageDialog(null,"Manager cannot be added!\n" + e.getMessage());}
 				}while(!validSalary);
 				
-				
-				//e1.setFirstName(JOptionPane.showInputDialog(firstName));
-				//e1.setLastName(JOptionPane.showInputDialog(LastName));
-				//e1.setAge(Integer.parseInt(JOptionPane.showInputDialog(age)));
-				//((Manager) e1).setSalary(Double.parseDouble(JOptionPane.showInputDialog(salary)));
 				
 				JOptionPane.showMessageDialog(null, e1.toString()); 
 				return e1;
@@ -355,10 +352,10 @@ public class ProjectApplication {
 
 	/**
    	*Calculates the all the Employees totals costs
-   	*@param list: Arraylist of Employee objects
+   	*@param list: LinkedList of Employee objects
     *returns: Double
   **/
-	public static double getTotalSalaries(ArrayList<Employee> list)
+	public static double getTotalSalaries(LinkedList<Employee> list)
 	{
 		double totalSalary = 0;
 		
@@ -372,10 +369,10 @@ public class ProjectApplication {
 	
 	/**
    	*Creates a report for Employee costs
-    *@param list: Arraylist of Employee objects
+    *@param list: LinkedList of Employee objects
     *returns: String
   **/
-	public static String printEmployeeReport(ArrayList<Employee> list){
+	public static String printEmployeeReport(LinkedList<Employee> list){
 		String out ="Employees Report******\n";
 
 		for(int i=0; i < list.size(); i++){
@@ -392,10 +389,10 @@ public class ProjectApplication {
 	
 	/**
    	*
-    *@param list: Arraylist of Employee objects
+    *@param list: LinkedList of Employee objects
     *returns: String
   **/
-	public static void writeData(String buildingName,ArrayList<Room> roomList, ArrayList<Employee> list) throws FileNotFoundException{
+	public static void writeData(String buildingName,LinkedList<Room> roomList, LinkedList<Employee> list) throws FileNotFoundException{
 		double finalTotalCost = 0;
 		finalTotalCost = getRoomTotalCost(roomList) + getTotalSalaries(list);
 		String reciept = "Total Housing Cost Reciept**********\n";

@@ -1,13 +1,16 @@
 package BuildingConstructionReporter;
 /*
- * Michael Yee
- * Albert Wei
- * Thu Tran
+ * @author Michael Yee
+ * @author Albert Wei
+ * @author Thu Tran
+ * 
  * IT 306 - 001
- * 4-21-2018
  *
- *
- * Project - PHASE IV:Preliminary System Implementation
+ * This is the data definition class for LivingRoom.
+ * It will store the specific information for LivingRoom type of Room.
+ * such as room cost, sofa, and television.
+ * This class have a getTotalCost() method to calculate the total based on does it have a sofa and television.
+ * This class have a toString() method to output the LivingRoom information.
  * */
 
 public class LivingRoom extends Room{

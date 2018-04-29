@@ -1,13 +1,16 @@
 package BuildingConstructionReporter;
 /*
- * Michael Yee
- * Albert Wei
- * Thu Tran
+ * @author Michael Yee
+ * @author Albert Wei
+ * @author Thu Tran
+ * 
  * IT 306 - 001
- * 4-21-2018
  *
- *
- * Project - PHASE IV:Preliminary System Implementation
+ * This is the data definition class for Bathroom.
+ * It will store the specific information for Bathroom type of Room.
+ * such as room cost, bathtub, and shower curtain.
+ * This class have a getTotalCost() method to calculate the total based on does it have a bathtub and shower curtain.
+ * This class have a toString() method to output the Bathroom information.
  * */
 public class Bathroom extends Room{
 	//Declare Constants for min and max cost

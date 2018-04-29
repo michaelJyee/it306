@@ -1,13 +1,15 @@
 package BuildingConstructionReporter;
 /*
- * Michael Yee
- * Albert Wei
- * Thu Tran
+ * @author Michael Yee
+ * @author Albert Wei
+ * @author Thu Tran
+ * 
  * IT 306 - 001
- * 4-21-2018
  *
- *
- * Project - PHASE IV:Preliminary System Implementation
+ * This is the data definition class for Manager.
+ * It will store the specific information for Manager type of employee.
+ * such as salary.
+ * This class will also have a toString() method to output the Manager information.
  * */
 
 public class Manager extends Employee {

@@ -1,13 +1,17 @@
 package BuildingConstructionReporter;
 /*
- * Michael Yee
- * Albert Wei
- * Thu Tran
+ * @author Michael Yee
+ * @author Albert Wei
+ * @author Thu Tran
+ * 
  * IT 306 - 001
- * 4-21-2018
  *
- *
- * Project - PHASE IV:Preliminary System Implementation
+ * This is the data definition class for Room.
+ * It will store the common information for every type of Room.
+ * such as room name, room height, and room width.
+ * Also it have a static counter to track the the total number of rooms.
+ * This class have a toString() method to output the Room information.
+ * This class have a abstract getTotalCost() method due to each type of the room has different cost.
  * */
 
 public abstract class Room {

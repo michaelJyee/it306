@@ -1,13 +1,15 @@
 package BuildingConstructionReporter;
 /*
- * Michael Yee
- * Albert Wei
- * Thu Tran
+ * @author Michael Yee
+ * @author Albert Wei
+ * @author Thu Tran
+ * 
  * IT 306 - 001
- * 4-21-2018
  *
- *
- * Project - PHASE IV:Preliminary System Implementation
+ * This is the data definition class for Construction Worker.
+ * It will store the specific information for Construction Worker type of employee.
+ * such as salary.
+ * This class will also have a toString() method to output the Construction Worker information.
  * */
 
 public class ConstructionWorker extends Employee {

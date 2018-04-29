@@ -1,13 +1,15 @@
 package BuildingConstructionReporter;
 /*
- * Michael Yee
- * Albert Wei
- * Thu Tran
+ * @author Michael Yee
+ * @author Albert Wei
+ * @author Thu Tran
+ * 
  * IT 306 - 001
- * 4-21-2018
  *
- *
- * Project - PHASE IV:Preliminary System Implementation
+ * This is the data definition class for Employee.
+ * It will store the common information for every type of Employee.
+ * such as first and last name, employee id, and age.
+ * This class will also have a toString() method to output the Employee information.
  * */
 
 public abstract class Employee {
